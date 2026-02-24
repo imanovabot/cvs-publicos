@@ -896,62 +896,198 @@
         function applyUrlParameters(params) {
             // Aplicar parámetros específicos de la URL
             
-            // Modo: reclutador, cliente_sap, cliente_cloud, impresion
-            const mode = params.get('mode');
+            // Sistema de tokens seguros en lugar de parámetros legibles
+            const token = params.get('t');
+            
+            if (token) {
+                console.log('🔒 Token detectado:', token);
+                applySecureToken(token);
+            } else {
+                // Fallback a parámetros legibles (para compatibilidad)
+                const mode = params.get('mode');
+                const theme = params.get('theme');
+                const hide = params.get('hide');
+                const show = params.get('show');
+                const emphasis = params.get('emphasis');
+                
+                console.log('⚠️ Parámetros legibles detectados (modo legacy):', { mode, theme, hide, show, emphasis });
+                applyLegacyParameters(mode, theme, hide, show, emphasis);
+            }
+            
+            // Agregar mensaje personalizado
+            addPersonalizedMessage();
+        }
+        
+        function applySecureToken(token) {
+            // Sistema de tokens seguros
+            // Los tokens son hashes simples que representan configuraciones específicas
+            
+            const tokenConfigs = {
+                // Token para reclutadores (sin salario)
+                'r3c1ut4d0r': {
+                    name: 'reclutador',
+                    hide: ['salary'],
+                    message: 'Versión para reclutadores - Salario oculto'
+                },
+                // Token para clientes SAP
+                'c13nt3s4p': {
+                    name: 'cliente_sap',
+                    emphasis: 'sap',
+                    message: 'Versión para clientes SAP - Experiencia SAP destacada'
+                },
+                // Token para clientes Cloud
+                'c13nt3c10ud': {
+                    name: 'cliente_cloud',
+                    emphasis: 'cloud',
+                    message: 'Versión para clientes Cloud - Experiencia Cloud destacada'
+                },
+                // Token para impresión
+                '1mpr3s10n': {
+                    name: 'impresion',
+                    printMode: true,
+                    message: 'Versión optimizada para impresión'
+                },
+                // Token para tema oscuro
+                '0scur0': {
+                    name: 'tema_oscuro',
+                    theme: 'dark',
+                    message: 'Tema oscuro activado'
+                }
+            };
+            
+            const config = tokenConfigs[token];
+            
+            if (!config) {
+                console.log('❌ Token no válido, aplicando configuración por defecto');
+                applyPersonalizedConfiguration();
+                return;
+            }
+            
+            console.log('✅ Token válido detectado:', config.name);
+            
+            // Aplicar configuración del token
+            if (config.hide) {
+                config.hide.forEach(selector => {
+                    document.querySelectorAll('[data-section="' + selector + '"]').forEach(el => {
+                        el.classList.add('hidden');
+                    });
+                });
+            }
+            
+            if (config.emphasis) {
+                document.querySelectorAll('[data-category="' + config.emphasis + '"]').forEach(el => {
+                    el.classList.add('highlight-' + config.emphasis);
+                });
+            }
+            
+            if (config.printMode) {
+                document.body.classList.add('print-optimized');
+            }
+            
+            if (config.theme === 'dark') {
+                document.body.classList.add('theme-dark');
+            }
+            
+            // Actualizar mensaje personalizado
+            updatePersonalizedMessage(config.message);
+        }
+        
+        function applyLegacyParameters(mode, theme, hide, show, emphasis) {
+            // Sistema legacy para compatibilidad con parámetros legibles
+            
+            // Aplicar modo
             if (mode) {
-                applyMode(mode);
+                switch(mode) {
+                    case 'reclutador':
+                        document.querySelectorAll('[data-section="salary"]').forEach(el => el.classList.add('hidden'));
+                        console.log('👔 Modo reclutador: Salario oculto');
+                        break;
+                        
+                    case 'cliente_sap':
+                        document.querySelectorAll('[data-category="sap"]').forEach(el => el.classList.add('highlight-sap'));
+                        console.log('💼 Modo cliente SAP: Experiencia SAP destacada');
+                        break;
+                        
+                    case 'cliente_cloud':
+                        document.querySelectorAll('[data-category="cloud"]').forEach(el => el.classList.add('highlight-cloud'));
+                        console.log('☁️ Modo cliente Cloud: Experiencia Cloud destacada');
+                        break;
+                        
+                    case 'impresion':
+                        document.body.classList.add('print-optimized');
+                        console.log('🖨️ Modo impresión: Optimizado para PDF');
+                        break;
+                }
             }
             
             // Ocultar elementos específicos
-            const hide = params.get('hide');
             if (hide) {
-                hideElements(hide.split(','));
+                hide.split(',').forEach(selector => {
+                    document.querySelectorAll('[data-section="' + selector + '"]').forEach(el => {
+                        el.classList.add('hidden');
+                    });
+                });
+                console.log('👁️ Elementos ocultos:', hide);
             }
             
             // Mostrar solo elementos específicos
-            const show = params.get('show');
             if (show) {
-                showOnlyElements(show.split(','));
+                // Primero ocultar todas las secciones
+                document.querySelectorAll('.section').forEach(el => {
+                    el.classList.add('hidden');
+                });
+                
+                // Luego mostrar solo los especificados
+                show.split(',').forEach(selector => {
+                    document.querySelectorAll('[data-section="' + selector + '"]').forEach(el => {
+                        el.classList.remove('hidden');
+                    });
+                });
+                console.log('👁️ Mostrando solo:', show);
             }
             
             // Tema: claro, oscuro
-            const theme = params.get('theme');
             if (theme) {
-                applyTheme(theme);
+                if (theme === 'oscuro') {
+                    document.body.classList.add('theme-dark');
+                    console.log('🌙 Tema oscuro activado');
+                }
             }
             
             // Enfasis: sap, cloud
-            const emphasis = params.get('emphasis');
             if (emphasis) {
-                applyEmphasis(emphasis);
+                if (emphasis === 'sap') {
+                    document.querySelectorAll('[data-category="sap"]').forEach(el => el.classList.add('highlight-sap'));
+                    console.log('💼 Énfasis SAP activado');
+                } else if (emphasis === 'cloud') {
+                    document.querySelectorAll('[data-category="cloud"]').forEach(el => el.classList.add('highlight-cloud'));
+                    console.log('☁️ Énfasis Cloud activado');
+                }
             }
         }
         
-        function applyMode(mode) {
-            switch(mode) {
-                case 'reclutador':
-                    // Ocultar salario, mostrar experiencia clave
-                    document.querySelectorAll('[data-section="salary"]').forEach(el => el.classList.add('hidden'));
-                    console.log('👔 Modo reclutador: Salario oculto');
-                    break;
-                    
-                case 'cliente_sap':
-                    // Destacar experiencia SAP
-                    document.querySelectorAll('[data-category="sap"]').forEach(el => el.classList.add('highlight-sap'));
-                    console.log('💼 Modo cliente SAP: Experiencia SAP destacada');
-                    break;
-                    
-                case 'cliente_cloud':
-                    // Destacar experiencia Cloud
-                    document.querySelectorAll('[data-category="cloud"]').forEach(el => el.classList.add('highlight-cloud'));
-                    console.log('☁️ Modo cliente Cloud: Experiencia Cloud destacada');
-                    break;
-                    
-                case 'impresion':
-                    // Optimizar para impresión
-                    document.body.classList.add('print-optimized');
-                    console.log('🖨️ Modo impresión: Optimizado para PDF');
-                    break;
+        function updatePersonalizedMessage(customMessage) {
+            const footer = document.querySelector('.footer');
+            if (footer) {
+                // Limpiar footer primero
+                footer.innerHTML = '';
+                
+                // Agregar mensaje personalizado
+                const message = document.createElement('p');
+                message.style.marginTop = '12px';
+                message.style.fontSize = '12px';
+                message.style.color = 'var(--imanova-blue)';
+                message.style.fontStyle = 'italic';
+                message.textContent = `🔒 ${customMessage}`;
+                footer.appendChild(message);
+                
+                // Agregar información de diseño
+                const designInfo = document.createElement('p');
+                designInfo.style.marginTop = '8px';
+                designInfo.style.fontSize = '11px';
+                designInfo.style.color = 'var(--imanova-gray-medium)';
+                designInfo.textContent = 'Diseño optimizado para A4 | Paleta corporativa Imanova (#1E3A8A, #10B981)';
+                footer.appendChild(designInfo);
             }
         }
         
@@ -1033,12 +1169,12 @@
                 linksDiv.style.color = 'var(--imanova-gray-medium)';
                 
                 linksDiv.innerHTML = `
-                    <strong>🎯 Enlaces personalizados:</strong><br>
-                    • <a href="?mode=reclutador" style="color: var(--imanova-blue); text-decoration: none; border-bottom: 1px dotted var(--imanova-blue);">Versión reclutador</a> (sin salario)<br>
-                    • <a href="?mode=cliente_sap" style="color: var(--imanova-blue); text-decoration: none; border-bottom: 1px dotted var(--imanova-blue);">Versión clientes SAP</a> (SAP destacado)<br>
-                    • <a href="?mode=cliente_cloud" style="color: var(--imanova-blue); text-decoration: none; border-bottom: 1px dotted var(--imanova-blue);">Versión clientes Cloud</a> (Cloud destacado)<br>
-                    • <a href="?mode=impresion" style="color: var(--imanova-blue); text-decoration: none; border-bottom: 1px dotted var(--imanova-blue);">Versión imprimible</a> (sin foto)<br>
-                    • <a href="?theme=oscuro" style="color: var(--imanova-blue); text-decoration: none; border-bottom: 1px dotted var(--imanova-blue);">Tema oscuro</a> (modo noche)
+                    <strong>🔒 Enlaces seguros personalizados:</strong><br>
+                    • <a href="?t=r3c1ut4d0r" style="color: var(--imanova-blue); text-decoration: none; border-bottom: 1px dotted var(--imanova-blue);">Versión reclutador</a> (sin salario)<br>
+                    • <a href="?t=c13nt3s4p" style="color: var(--imanova-blue); text-decoration: none; border-bottom: 1px dotted var(--imanova-blue);">Versión clientes SAP</a> (SAP destacado)<br>
+                    • <a href="?t=c13nt3c10ud" style="color: var(--imanova-blue); text-decoration: none; border-bottom: 1px dotted var(--imanova-blue);">Versión clientes Cloud</a> (Cloud destacado)<br>
+                    • <a href="?t=1mpr3s10n" style="color: var(--imanova-blue); text-decoration: none; border-bottom: 1px dotted var(--imanova-blue);">Versión imprimible</a> (sin foto)<br>
+                    • <a href="?t=0scur0" style="color: var(--imanova-blue); text-decoration: none; border-bottom: 1px dotted var(--imanova-blue);">Tema oscuro</a> (modo noche)
                 `;
                 
                 footer.appendChild(linksDiv);
