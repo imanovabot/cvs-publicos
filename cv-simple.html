@@ -18,16 +18,47 @@
             border-bottom: 3px solid #1E3A8A;
             padding-bottom: 20px;
             margin-bottom: 30px;
+            position: relative;
+        }
+        .profile-photo {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #1E3A8A;
+            object-fit: cover;
+        }
+        .photo-placeholder {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #1E3A8A;
+            background: linear-gradient(135deg, #1E3A8A, #10B981);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            text-align: center;
+            line-height: 1.2;
         }
         .name {
             color: #1E3A8A;
             font-size: 28px;
             margin-bottom: 5px;
+            margin-right: 120px;
         }
         .title {
             color: #10B981;
             font-size: 18px;
             margin-bottom: 15px;
+            margin-right: 120px;
         }
         .contact {
             display: flex;
@@ -85,6 +116,11 @@
             <div>📧 alejandro.daza@imanova.co</div>
             <div>📱 +57 3004337547</div>
             <div>📍 Medellín, Colombia</div>
+            <div>💰 Salario: $12M COP/mes</div>
+        </div>
+        <!-- Reemplazar con tu foto: <img src="tu-foto.jpg" class="profile-photo" alt="Alejandro Daza"> -->
+        <div class="photo-placeholder">
+            FOTO<br>PERFIL
         </div>
     </div>
 

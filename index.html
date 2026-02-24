@@ -48,6 +48,37 @@
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 16px;
+            position: relative;
+        }
+        
+        .profile-photo-container {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        
+        .profile-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid var(--imanova-blue);
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .photo-placeholder {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid var(--imanova-blue);
+            background: linear-gradient(135deg, var(--imanova-blue), var(--imanova-green));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         
         .name {
@@ -55,6 +86,7 @@
             font-weight: 700;
             color: var(--imanova-blue);
             line-height: 1.2;
+            margin-right: 140px; /* Espacio para la foto */
         }
         
         .title {
@@ -62,6 +94,7 @@
             font-weight: 600;
             color: var(--imanova-gray-dark);
             margin-top: 4px;
+            margin-right: 140px; /* Espacio para la foto */
         }
         
         .contact-info {
@@ -423,7 +456,12 @@
                 <h1 class="name">ALEJANDRO DAZA</h1>
                 <div class="title">Consultor Especializado SAP Analytics Cloud (SAC)</div>
             </div>
-            <div class="period">Disponibilidad: Inmediata</div>
+            <div class="profile-photo-container">
+                <!-- Reemplazar con tu foto: <img src="tu-foto.jpg" class="profile-photo" alt="Alejandro Daza"> -->
+                <div class="photo-placeholder">
+                    FOTO<br>PERFIL
+                </div>
+            </div>
         </div>
         
         <div class="contact-info">
@@ -480,11 +518,11 @@
         </div>
         
         <div class="salary-box">
-            <div class="salary-range">$8M - $10M COP/mes</div>
+            <div class="salary-range">$12M COP/mes</div>
             <div class="salary-justification">
                 Expectativa salarial justificada por experiencia especializada en SAC (4+ años), 
                 valor entregado en proyectos anteriores (ahorros de $50M+ COP anuales), 
-                y tarifas de mercado para consultores SAC senior en Colombia.
+                certificaciones SAP actualizadas, y tarifas de mercado para consultores SAC expertos en Colombia.
             </div>
         </div>
     </div>
