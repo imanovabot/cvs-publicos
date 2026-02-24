@@ -398,12 +398,7 @@
         
         /* Footer */
         .footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 2px solid var(--imanova-gray-light);
-            text-align: center;
-            font-size: 12px;
-            color: var(--imanova-gray-medium);
+            display: none; /* Oculto completamente - CV de solo dos páginas */
         }
         
         /* Print Optimizations */
@@ -1066,28 +1061,8 @@
         }
         
         function updatePersonalizedMessage(customMessage) {
-            const footer = document.querySelector('.footer');
-            if (footer) {
-                // Limpiar footer primero
-                footer.innerHTML = '';
-                
-                // Agregar mensaje personalizado
-                const message = document.createElement('p');
-                message.style.marginTop = '12px';
-                message.style.fontSize = '12px';
-                message.style.color = 'var(--imanova-blue)';
-                message.style.fontStyle = 'italic';
-                message.textContent = `🔒 ${customMessage}`;
-                footer.appendChild(message);
-                
-                // Agregar información de diseño
-                const designInfo = document.createElement('p');
-                designInfo.style.marginTop = '8px';
-                designInfo.style.fontSize = '11px';
-                designInfo.style.color = 'var(--imanova-gray-medium)';
-                designInfo.textContent = 'Diseño optimizado para A4 | Paleta corporativa Imanova (#1E3A8A, #10B981)';
-                footer.appendChild(designInfo);
-            }
+            // Función vacía - No se muestran mensajes en el footer
+            // El CV es solo de dos páginas, sin información adicional
         }
         
         function hideElements(selectors) {
@@ -1136,48 +1111,13 @@
         }
         
         function addPersonalizedMessage() {
-            const footer = document.querySelector('.footer');
-            if (footer) {
-                // Mensaje principal
-                const message = document.createElement('p');
-                message.style.marginTop = '12px';
-                message.style.fontSize = '12px';
-                message.style.color = 'var(--imanova-blue)';
-                message.style.fontStyle = 'italic';
-                message.textContent = '📱 Versión personalizada para reclutadores - Experiencia SAP destacada - Salario oculto';
-                footer.appendChild(message);
-                
-                // Información de diseño
-                const designInfo = document.createElement('p');
-                designInfo.style.marginTop = '8px';
-                designInfo.style.fontSize = '11px';
-                designInfo.style.color = 'var(--imanova-gray-medium)';
-                designInfo.textContent = 'Diseño optimizado para A4 | Paleta corporativa Imanova (#1E3A8A, #10B981)';
-                footer.appendChild(designInfo);
-            }
+            // Función vacía - No se muestran mensajes en el footer
+            // El CV es solo de dos páginas, sin información adicional
         }
         
         function createExampleLinks() {
-            const footer = document.querySelector('.footer');
-            if (footer) {
-                const linksDiv = document.createElement('div');
-                linksDiv.style.marginTop = '16px';
-                linksDiv.style.paddingTop = '16px';
-                linksDiv.style.borderTop = '1px solid var(--imanova-gray-light)';
-                linksDiv.style.fontSize = '11px';
-                linksDiv.style.color = 'var(--imanova-gray-medium)';
-                
-                linksDiv.innerHTML = `
-                    <strong>🔒 Enlaces seguros personalizados:</strong><br>
-                    • <a href="?t=r3c1ut4d0r" style="color: var(--imanova-blue); text-decoration: none; border-bottom: 1px dotted var(--imanova-blue);">Versión reclutador</a> (sin salario)<br>
-                    • <a href="?t=c13nt3s4p" style="color: var(--imanova-blue); text-decoration: none; border-bottom: 1px dotted var(--imanova-blue);">Versión clientes SAP</a> (SAP destacado)<br>
-                    • <a href="?t=c13nt3c10ud" style="color: var(--imanova-blue); text-decoration: none; border-bottom: 1px dotted var(--imanova-blue);">Versión clientes Cloud</a> (Cloud destacado)<br>
-                    • <a href="?t=1mpr3s10n" style="color: var(--imanova-blue); text-decoration: none; border-bottom: 1px dotted var(--imanova-blue);">Versión imprimible</a> (sin foto)<br>
-                    • <a href="?t=0scur0" style="color: var(--imanova-blue); text-decoration: none; border-bottom: 1px dotted var(--imanova-blue);">Tema oscuro</a> (modo noche)
-                `;
-                
-                footer.appendChild(linksDiv);
-            }
+            // Función vacía - No se muestran enlaces en el footer
+            // El CV es solo de dos páginas, sin información adicional
         }
     </script>
 </body>
