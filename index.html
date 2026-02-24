@@ -104,6 +104,50 @@
             margin-top: 20px;
         }
         
+        /* Clases para control dinámico */
+        .hidden {
+            display: none !important;
+        }
+        
+        .highlight-sap {
+            background-color: rgba(30, 58, 138, 0.1);
+            border-left: 4px solid var(--imanova-blue);
+            padding-left: 12px;
+        }
+        
+        .highlight-cloud {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--imanova-green);
+            padding-left: 12px;
+        }
+        
+        .theme-dark {
+            background-color: #111827;
+            color: #f3f4f6;
+        }
+        
+        .theme-dark .name {
+            color: #60a5fa;
+        }
+        
+        .theme-dark .section-title {
+            color: #93c5fd;
+        }
+        
+        .theme-dark .contact-info {
+            color: #d1d5db;
+        }
+        
+        .print-optimized .profile-photo-container,
+        .print-optimized .photo-placeholder {
+            display: none;
+        }
+        
+        .print-optimized .name,
+        .print-optimized .title {
+            margin-right: 0;
+        }
+        
         .contact-item {
             display: flex;
             align-items: center;
@@ -485,7 +529,7 @@
     </div>
     
     <!-- Professional Summary -->
-    <div class="section">
+    <div class="section" data-section="summary">
         <h2 class="section-title">RESUMEN PROFESIONAL</h2>
         <p style="font-size: 15px; line-height: 1.7; color: var(--imanova-gray-dark);">
             Consultor SAP Analytics Cloud con <strong>4+ años de experiencia especializada</strong> en implementación, configuración y optimización de soluciones SAC. 
@@ -495,7 +539,7 @@
     </div>
     
     <!-- Answers to Recruiter Questions -->
-    <div class="section">
+    <div class="section" data-section="qa">
         <h2 class="section-title">RESPUESTAS A PREGUNTAS DEL RECLUTADOR</h2>
         
         <div class="availability-grid">
@@ -517,7 +561,7 @@
             </div>
         </div>
         
-        <div class="salary-box">
+        <div class="salary-box" data-section="salary">
             <div class="salary-range">$12M COP/mes</div>
             <div class="salary-justification">
                 Expectativa salarial justificada por experiencia especializada en SAC (4+ años), 
@@ -528,11 +572,11 @@
     </div>
     
     <!-- Relevant SAC Experience -->
-    <div class="section">
+    <div class="section" data-section="experience">
         <h2 class="section-title">EXPERIENCIA RELEVANTE SAC</h2>
         
         <!-- Imanova -->
-        <div class="experience-item">
+        <div class="experience-item" data-category="cloud" data-category="sap">
             <div class="company-period">
                 <div class="company">IMANOVA</div>
                 <div class="period">Ene 2025 - Presente</div>
@@ -556,7 +600,7 @@
         </div>
         
         <!-- BDO -->
-        <div class="experience-item">
+        <div class="experience-item" data-category="sap">
             <div class="company-period">
                 <div class="company">BDO</div>
                 <div class="period">Sep 2021 - Dic 2022</div>
@@ -580,7 +624,7 @@
         </div>
         
         <!-- On Business Consulting -->
-        <div class="experience-item">
+        <div class="experience-item" data-category="sap">
             <div class="company-period">
                 <div class="company">ON BUSINESS CONSULTING</div>
                 <div class="period">Jun 2020 - Ago 2021</div>
@@ -605,7 +649,7 @@
     </div>
     
     <!-- Technical Skills -->
-    <div class="section">
+    <div class="section" data-section="skills">
         <h2 class="section-title">HABILIDADES TÉCNICAS ESPECÍFICAS SAC</h2>
         
         <div class="skills-grid">
@@ -648,7 +692,7 @@
     </div>
     
     <!-- Highlighted Projects -->
-    <div class="section">
+    <div class="section" data-section="projects">
         <h2 class="section-title">PROYECTOS DESTACADOS SAC</h2>
         
         <div class="project">
@@ -698,7 +742,7 @@
     </div>
     
     <!-- Certifications -->
-    <div class="section">
+    <div class="section" data-section="certifications">
         <h2 class="section-title">CERTIFICACIONES</h2>
         
         <div class="certifications">
@@ -722,7 +766,7 @@
     </div>
     
     <!-- Availability -->
-    <div class="section">
+    <div class="section" data-section="availability">
         <h2 class="section-title">DISPONIBILIDAD Y CONDICIONES</h2>
         
         <div class="availability-grid">
@@ -754,7 +798,7 @@
     </div>
     
     <!-- Why Ideal Candidate -->
-    <div class="section">
+    <div class="section" data-section="ideal-candidate">
         <h2 class="section-title">POR QUÉ SOY EL CANDIDATO IDEAL</h2>
         
         <div class="skills-grid">
@@ -805,15 +849,196 @@
             });
         });
         
-        // Instructions for user
+        // Sistema de parámetros personalizados por URL
         document.addEventListener('DOMContentLoaded', function() {
             console.log('✅ CV HTML cargado correctamente');
+            
+            // Obtener parámetros de la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Si no hay parámetros, aplicar configuración por defecto personalizada
+            if (urlParams.toString() === '') {
+                console.log('🔧 Aplicando configuración personalizada por defecto');
+                applyPersonalizedConfiguration();
+            } else {
+                console.log('🔧 Aplicando parámetros de URL:', urlParams.toString());
+                applyUrlParameters(urlParams);
+            }
+            
+            // Crear enlaces de ejemplo en el footer
+            createExampleLinks();
+            
+            // Instrucciones para usuario
             console.log('📄 Para imprimir a PDF:');
             console.log('1. Click en "Imprimir a PDF" (botón verde)');
             console.log('2. O use Ctrl+P (Windows/Linux) o Cmd+P (Mac)');
             console.log('3. En diálogo impresión, seleccione "Guardar como PDF"');
             console.log('4. Ajuste márgenes a "Mínimo" para mejor resultado');
         });
+        
+        function applyPersonalizedConfiguration() {
+            // Esta es la configuración personalizada por defecto
+            // Se aplica cuando la URL no tiene parámetros
+            
+            // 1. Ocultar salario (para compartir con reclutadores)
+            const salaryElements = document.querySelectorAll('[data-section="salary"], .salary');
+            salaryElements.forEach(el => el.classList.add('hidden'));
+            
+            // 2. Destacar experiencia SAP (para clientes SAP)
+            const sapElements = document.querySelectorAll('[data-category="sap"], .sap');
+            sapElements.forEach(el => el.classList.add('highlight-sap'));
+            
+            // 3. Agregar modo profesional
+            document.body.classList.add('professional-mode');
+            
+            // 4. Agregar mensaje personalizado
+            addPersonalizedMessage();
+            
+            console.log('🎯 Configuración aplicada: Salario oculto, SAP destacado, modo profesional');
+        }
+        
+        function applyUrlParameters(params) {
+            // Aplicar parámetros específicos de la URL
+            
+            // Modo: reclutador, cliente_sap, cliente_cloud, impresion
+            const mode = params.get('mode');
+            if (mode) {
+                applyMode(mode);
+            }
+            
+            // Ocultar elementos específicos
+            const hide = params.get('hide');
+            if (hide) {
+                hideElements(hide.split(','));
+            }
+            
+            // Mostrar solo elementos específicos
+            const show = params.get('show');
+            if (show) {
+                showOnlyElements(show.split(','));
+            }
+            
+            // Tema: claro, oscuro
+            const theme = params.get('theme');
+            if (theme) {
+                applyTheme(theme);
+            }
+            
+            // Enfasis: sap, cloud
+            const emphasis = params.get('emphasis');
+            if (emphasis) {
+                applyEmphasis(emphasis);
+            }
+        }
+        
+        function applyMode(mode) {
+            switch(mode) {
+                case 'reclutador':
+                    // Ocultar salario, mostrar experiencia clave
+                    document.querySelectorAll('[data-section="salary"]').forEach(el => el.classList.add('hidden'));
+                    console.log('👔 Modo reclutador: Salario oculto');
+                    break;
+                    
+                case 'cliente_sap':
+                    // Destacar experiencia SAP
+                    document.querySelectorAll('[data-category="sap"]').forEach(el => el.classList.add('highlight-sap'));
+                    console.log('💼 Modo cliente SAP: Experiencia SAP destacada');
+                    break;
+                    
+                case 'cliente_cloud':
+                    // Destacar experiencia Cloud
+                    document.querySelectorAll('[data-category="cloud"]').forEach(el => el.classList.add('highlight-cloud'));
+                    console.log('☁️ Modo cliente Cloud: Experiencia Cloud destacada');
+                    break;
+                    
+                case 'impresion':
+                    // Optimizar para impresión
+                    document.body.classList.add('print-optimized');
+                    console.log('🖨️ Modo impresión: Optimizado para PDF');
+                    break;
+            }
+        }
+        
+        function hideElements(selectors) {
+            selectors.forEach(selector => {
+                document.querySelectorAll('[data-section="' + selector + '"]').forEach(el => {
+                    el.classList.add('hidden');
+                });
+            });
+            console.log('👁️ Elementos ocultos:', selectors);
+        }
+        
+        function showOnlyElements(selectors) {
+            // Primero ocultar todas las secciones
+            document.querySelectorAll('.section').forEach(el => {
+                el.classList.add('hidden');
+            });
+            
+            // Luego mostrar solo los especificados
+            selectors.forEach(selector => {
+                document.querySelectorAll('[data-section="' + selector + '"]').forEach(el => {
+                    el.classList.remove('hidden');
+                });
+            });
+            console.log('👁️ Mostrando solo:', selectors);
+        }
+        
+        function applyTheme(theme) {
+            if (theme === 'oscuro') {
+                document.body.classList.add('theme-dark');
+                console.log('🌙 Tema oscuro aplicado');
+            }
+        }
+        
+        function applyEmphasis(emphasis) {
+            if (emphasis === 'sap') {
+                document.querySelectorAll('[data-category="sap"]').forEach(el => {
+                    el.classList.add('highlight-sap');
+                });
+                console.log('🎯 Énfasis en SAP');
+            } else if (emphasis === 'cloud') {
+                document.querySelectorAll('[data-category="cloud"]').forEach(el => {
+                    el.classList.add('highlight-cloud');
+                });
+                console.log('🎯 Énfasis en Cloud');
+            }
+        }
+        
+        function addPersonalizedMessage() {
+            const footer = document.querySelector('.footer');
+            if (footer) {
+                const message = document.createElement('p');
+                message.style.marginTop = '12px';
+                message.style.fontSize = '12px';
+                message.style.color = 'var(--imanova-blue)';
+                message.style.fontStyle = 'italic';
+                message.textContent = '📱 Versión personalizada para reclutadores - Experiencia SAP destacada - Salario oculto';
+                footer.appendChild(message);
+            }
+        }
+        
+        function createExampleLinks() {
+            const footer = document.querySelector('.footer');
+            if (footer) {
+                const linksDiv = document.createElement('div');
+                linksDiv.style.marginTop = '16px';
+                linksDiv.style.paddingTop = '16px';
+                linksDiv.style.borderTop = '1px solid var(--imanova-gray-light)';
+                linksDiv.style.fontSize = '11px';
+                linksDiv.style.color = 'var(--imanova-gray-medium)';
+                
+                linksDiv.innerHTML = `
+                    <strong>🎯 Enlaces personalizados:</strong><br>
+                    • <a href="?mode=reclutador" style="color: var(--imanova-blue); text-decoration: none; border-bottom: 1px dotted var(--imanova-blue);">Versión reclutador</a> (sin salario)<br>
+                    • <a href="?mode=cliente_sap" style="color: var(--imanova-blue); text-decoration: none; border-bottom: 1px dotted var(--imanova-blue);">Versión clientes SAP</a> (SAP destacado)<br>
+                    • <a href="?mode=cliente_cloud" style="color: var(--imanova-blue); text-decoration: none; border-bottom: 1px dotted var(--imanova-blue);">Versión clientes Cloud</a> (Cloud destacado)<br>
+                    • <a href="?mode=impresion" style="color: var(--imanova-blue); text-decoration: none; border-bottom: 1px dotted var(--imanova-blue);">Versión imprimible</a> (sin foto)<br>
+                    • <a href="?theme=oscuro" style="color: var(--imanova-blue); text-decoration: none; border-bottom: 1px dotted var(--imanova-blue);">Tema oscuro</a> (modo noche)
+                `;
+                
+                footer.appendChild(linksDiv);
+            }
+        }
     </script>
 </body>
 </html>
