@@ -1,5 +1,3 @@
-# CVs Públicos - Imanova
-Repositorio público para compartir currículos con reclutadores
+# CV Profesional - Alejandro Daza
 
-## CVs disponibles:
-- [CV Consultor SAC](CV_Consultor_SAC_HTML.html)
+CV profesional interactivo con diseño moderno y optimizado para impresión.
