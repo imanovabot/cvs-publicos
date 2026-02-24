@@ -833,11 +833,7 @@
     
     <!-- Footer -->
     <div class="footer">
-        <p>CV preparado específicamente para oferta de Consultor SAC - 24 de febrero de 2026</p>
-        <p>Para imprimir a PDF: Click en "Imprimir a PDF" arriba o use Ctrl+P en su navegador</p>
-        <p style="margin-top: 8px; font-size: 11px; color: var(--imanova-gray-medium);">
-            Diseño optimizado para A4 | Paleta corporativa Imanova (#1E3A8A, #10B981)
-        </p>
+        <!-- El footer ahora se llena dinámicamente con JavaScript -->
     </div>
     
     <!-- JavaScript for Print Optimization -->
@@ -1007,6 +1003,7 @@
         function addPersonalizedMessage() {
             const footer = document.querySelector('.footer');
             if (footer) {
+                // Mensaje principal
                 const message = document.createElement('p');
                 message.style.marginTop = '12px';
                 message.style.fontSize = '12px';
@@ -1014,6 +1011,14 @@
                 message.style.fontStyle = 'italic';
                 message.textContent = '📱 Versión personalizada para reclutadores - Experiencia SAP destacada - Salario oculto';
                 footer.appendChild(message);
+                
+                // Información de diseño
+                const designInfo = document.createElement('p');
+                designInfo.style.marginTop = '8px';
+                designInfo.style.fontSize = '11px';
+                designInfo.style.color = 'var(--imanova-gray-medium)';
+                designInfo.textContent = 'Diseño optimizado para A4 | Paleta corporativa Imanova (#1E3A8A, #10B981)';
+                footer.appendChild(designInfo);
             }
         }
         
